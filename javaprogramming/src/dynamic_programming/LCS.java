@@ -14,12 +14,6 @@ public class LCS {
 				else a[i+1][j+1]=Math.max(a[i][j+1], a[i+1][j]);
 			}
 		}
-		for(int i=0;i<=m;i++) {
-			System.out.println();
-			for(int j=0;j<=n;j++) {
-				System.out.print(a[i][j]+"\t");
-			}
-		}
 		return a[m][n];	
 	}
 	
