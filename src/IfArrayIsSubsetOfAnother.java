@@ -7,7 +7,7 @@ import java.util.Map;
  * Level: Easy
  * refer to: https://practice.geeksforgeeks.org/problems/array-subset-of-another-array2317/1#
  *
- * Approach-
+ * Approach -
  *      Create a hashmap of size m(for the smaller array, i.e., a2).
  *      While traversing through a1 decrement the count of elements in hashmap
  *      If the count>=1, a2 is not the subset
