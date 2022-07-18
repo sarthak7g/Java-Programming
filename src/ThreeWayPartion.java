@@ -13,8 +13,6 @@ import java.util.Arrays;
  *
  */
 
-// two pointers -> left and right, increment when left is found or right is found
-
 public class ThreeWayPartion {
     public static void main(String[] args) {
         int arr[] = {39, 81, 19, 22, 71};
