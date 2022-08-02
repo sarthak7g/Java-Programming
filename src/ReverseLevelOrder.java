@@ -3,28 +3,36 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
+/**
+ *
+ * Level: Easy
+ * refer to: https://practice.geeksforgeeks.org/problems/reverse-level-order-traversal/1
+ *
+ * Approach:
+ *      Traverse each element of a tree and store the right child first and then the left child of a node in a doubly linked list in that order.
+ *
+ * Time complexity: O(n)
+ * Space complexity: O(n)
+ *
+ */
 class LinkedListNode {
     Node data;
     LinkedListNode prev, next;
 }
 
-
 public class ReverseLevelOrder {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
+        String s = sc.nextLine();
 
-        while(t > 0){
-            String s = sc.nextLine();
-            Node root = buildTree(s);
-            ArrayList<Integer> ans = reverseLevelOrder(root);
+//       String s = "1 2 3 4 N N 6";
 
-            for (Integer val: ans)
-                System.out.print(val+" ");
-            System.out.println();
-            t--;
-        }
+        Node root = buildTree(s);
+        ArrayList<Integer> ans = reverseLevelOrder(root);
+
+        for (Integer val: ans)
+            System.out.print(val+" ");
     }
 
     public static ArrayList<Integer> reverseLevelOrder(Node node)
@@ -121,14 +129,5 @@ public class ReverseLevelOrder {
 
         return root;
     }
-    static void printInorder(Node root)
-    {
-        if(root == null)
-            return;
 
-        printInorder(root.left);
-        System.out.print(root.data+" ");
-
-        printInorder(root.right);
-    }
 }
