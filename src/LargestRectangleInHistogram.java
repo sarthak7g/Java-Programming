@@ -4,7 +4,7 @@ import java.util.Arrays;
  *
  * <h3>Level: Hard </h3>
  * <body>
- * refer to: https://leetcode.com/problems/largest-rectangle-in-histogram/
+ * refer to: <a href="https://leetcode.com/problems/largest-rectangle-in-histogram/">Largest Rectangle in Histogram</a>
  * <br/>
  * Approach:
  *      Build segment tree that will store the indexes of min element
