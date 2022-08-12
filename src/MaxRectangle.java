@@ -16,7 +16,7 @@ import java.util.Stack;
  *          <li>Height of bar in each row will be height of bar in prev row + 1, and 0 when value in curr cell is 0</li>
  *      </ul>
  * Time complexity: O(n^2) <br/>
- * Auxiliary Space: O(1)
+ * Auxiliary Space: O(n)
  * </body>
  */
 
