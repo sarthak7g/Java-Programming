@@ -1,5 +1,5 @@
 /**
- * <h3>Level: Medium </h3>
+ * <h3>Level: Easy </h3>
  * <body>
  * refer to: <a href="https://practice.geeksforgeeks.org/problems/reverse-a-linked-list/1">Reverse Linked List</a>
  * <br/>
