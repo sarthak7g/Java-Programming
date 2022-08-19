@@ -1,3 +1,5 @@
+package dp.matrix;
+
 /**
  * <h3>Level: Hard </h3>
  * <body>
