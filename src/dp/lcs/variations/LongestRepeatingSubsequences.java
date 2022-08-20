@@ -1,4 +1,4 @@
-package dp.matrix;
+package dp.lcs.variations;
 
 /**
  * <h3>Level: Medium </h3>
