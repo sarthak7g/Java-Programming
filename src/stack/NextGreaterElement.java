@@ -1,18 +1,25 @@
+package stack;
+
 import java.util.Arrays;
 import java.util.Stack;
 
 /**
- *
- * Level: Medium
- * refer to: https://practice.geeksforgeeks.org/problems/next-larger-element-1587115620/1/#
- *
- * Time complexity: O(n)
- * Space complexity: O(n)
- *
+ * <h3>Level: Medium </h3>
+ * <body>
+ * refer to: <a href="https://practice.geeksforgeeks.org/problems/next-larger-element-1587115620/1/">Next Greater Element</a>
+ * <br/>
+ *  Approach:
+ *      <ul>
+ *          <li>Start traversing from the last</li>
+ *          <li>Push when the current element is smaller than the stack top</li>
+ *          <li>Pop all the elements from the stack until the current element becomes smaller than stack top</li>
+ *          <li>Time complexity: O(n)</li>
+ *          <li>Space complexity: O(n)</li>
+ *      </ul>
+ * </body>
  */
 
-
-public class FindNextGreaterElement {
+public class NextGreaterElement {
 
     public static void main(String[] args) {
         long [] ans = nextLargerElement(new long[]{12, 12, 12, 12, 1, 2, 3, 10, 19}, 9);
