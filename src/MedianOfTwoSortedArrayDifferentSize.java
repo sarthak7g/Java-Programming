@@ -19,8 +19,11 @@
 public class MedianOfTwoSortedArrayDifferentSize {
 
     public static void main(String[] args) {
-        int arr1[] = {1,1,1,1,1,1,1,1,1,1,4,4};
-        int arr2[] = {1,3,4,4,4,4,4,4,4,4,4};
+        int[] arr1 = {1,1,1,1,1,1,1,1,1,1,4,4};
+        int[] arr2 = {1,3,4,4,4,4,4,4,4,4,4};
+
+//        int[] arr1 = {9};
+//        int[] arr2 = {3, 4, 5, 7, 9};
         System.out.println(findMedianSortedArrays(arr1, arr2));
     }
 
@@ -50,8 +53,8 @@ public class MedianOfTwoSortedArrayDifferentSize {
             }
         }
 
-        int start=0, end=n1-1, i1, i2, left=0, right=0;
-        int leftMax = 0, rightMin = 0;
+        int start=0, end=n1-1, i1, i2;
+        int leftMax, rightMin;
         while(start <= end) {
             i1 = (start+end)/2;
             i2 = (n1 + n2 + 1)/2 - i1;
