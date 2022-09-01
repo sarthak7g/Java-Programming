@@ -1,51 +1,59 @@
 package dp.lcs.variations;
 
-import java.util.Arrays;
+/**
+ * <h3>Level: Medium </h3>
+ * <body>
+ * refer to: <a href="https://leetcode.com/problems/longest-palindromic-substring/">Longest Palindromic Substring</a>
+ * <br/>
+ * Approach 1:
+ *      <ul>
+ *          <li>Iterative DP, using matrix</li>
+ *          <li>Use Longest Common Substring where str2 will be reverse of str1</li>
+ *          <li>At each step check whether the substring formed is palindromic or not</li>
+ *          <li>Time complexity: O(n^2)</li>
+ *      </ul>
+ *  <br/>
+ * </body>
+ */
 
 public class LongestPalindromicSubstring {
     public static void main(String[] args) {
-//        System.out.println(longestPalindrome("aaaabbaa"));
+        System.out.println(longestPalindrome("aaaabbaa"));
         System.out.println(longestPalindrome("abacdfgdcaba"));
     }
-    static String longestPalindrome(String s){
-        String s2 = reverse(s);
-        System.out.println(s);
-        System.out.println(s2);
-        int n = s.length();
-        int m = s2.length();
-        int max=0, maxi=0, maxj=0;
-        int arr[][] = new int[n+1][n+1];
-        for(int i=1; i<=n; i++) {
-            for(int j=1; j<=m; j++) {
-                if(s.charAt(i-1) == s2.charAt(j-1)) {
+    public static String longestPalindrome(String s) {
+        StringBuilder str = new StringBuilder(s);
+        str.reverse();
+        String s2 = str.toString();
+
+        int n=s.length() + 1;
+        int[][] arr = new int[n][n];
+
+        String ans = "";
+        for(int i=1; i<n; i++) {
+            for(int j=1; j<n; j++) {
+                if(s.charAt(j-1) == s2.charAt(i-1)) {
                     arr[i][j] = arr[i-1][j-1] + 1;
-                    if(arr[i][j] >= max) {
-                        max = arr[i][j];
-                        maxi=i;
-                        maxj=j;
+                    if(arr[i][j]>ans.length()) {
+                        // check palindromic
+                        String temp = s2.substring(i-arr[i][j], i);
+                        if(check(temp)) {
+                            ans = temp;
+                        }
                     }
                 }
             }
         }
-        System.out.println(s.substring(maxi-arr[maxi][maxj], maxi));
-        print(arr);
-        return "";
+        // Arrays.stream(arr).forEach(x -> System.out.println(Arrays.toString(x)));
+        return ans;
     }
 
-    private static String reverse(String s) {
-        char[] arr = s.toCharArray();
-        int i=0, j=s.length()-1;
-        while(i<j){
-            char temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+    static boolean check(String str) {
+        int i=0, j=str.length()-1;
+        while(i<j && str.charAt(i) == str.charAt(j)){
             i++;
             j--;
         }
-        return new String(arr);
-    }
-
-    static void print(int[][] arr) {
-        Arrays.asList(arr).forEach(x->System.out.println(Arrays.toString(x)));
+        return i>=j;
     }
 }
