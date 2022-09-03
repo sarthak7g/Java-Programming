@@ -1,5 +1,20 @@
 package dp.lcs.variations;
 
+/**
+ * <h3>Level: Medium </h3>
+ * <body>
+ * refer to: <a href="https://practice.geeksforgeeks.org/problems/longest-common-subsequence-1587115620/1">Longest Common Subsequence</a>
+ * <br/>
+ *  Approach 1:
+ *      <ul>
+ *          <li>Iterative Dp, Matrix/li>
+ *          <li>if s1[i-1] == s2[j-1], arr[i][j] = arr[i-1][j-1]+1</li>
+ *          <li>else arr[i][j] = max(arr[i-1][j], arr[i][j-1])</li>
+ *          <li>Time complexity: O(n^2)</li>
+ *      </ul>
+ * </body>
+ */
+
 public class PrintLCS {
     public static void main(String[] args) {
         System.out.println(findLCS("saransh", "sarthak"));
