@@ -10,7 +10,6 @@ import java.util.ArrayList;
  *          <li>Recursive, find solution for substr and then, add</li>
  *          <li>Time complexity: O(n * 2^n), where n is length of string</li>
  *      </ul>
- *  <br/>
  */
 
 public class AllSubsequences {
