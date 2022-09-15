@@ -1,11 +1,11 @@
 package graph;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Set;
+
+import static java.util.Arrays.asList;
 
 /**
  * <h3>Level: Medium </h3>
@@ -15,47 +15,50 @@ import java.util.Set;
  * Approach:
  *      <ul>
  *          <li>Use DFS</li>
- *          <li>Time complexity: O(N+E)</li>
+ *          <li>While traversing, also maintain path, if you have seen the current element in the path, then it is cycle, else continue</li>
+ *          <li>Time complexity: O(V+E)</li>
+ *          <li>Space complexity: O(E)</li>
  *      </ul>
  */
 
 public class DetectCycleInDirectedGraph {
     public static void main(String[] args) {
-        System.out.println(isCyclic(4, Arrays.asList(
-                Arrays.asList(0, 1), Arrays.asList(1, 2),
-                Arrays.asList(1, 3), Arrays.asList(2, 3)
+        System.out.println(isCyclic(4, asList(
+                Collections.singletonList(1), asList(2, 3),
+                Collections.singletonList(3), Collections.singletonList(3)
         )));
-        System.out.println(isCyclic(4, Arrays.asList(
-                Arrays.asList(0, 1), Arrays.asList(1, 2),
-                Arrays.asList(2, 3), Arrays.asList(3, 3)
+        System.out.println(isCyclic(4, asList(
+                Collections.singletonList(1), asList(2, 3),
+                Collections.singletonList(3), Collections.emptyList()
         )));
-        System.out.println(isCyclic(5, Arrays.asList(
-                Arrays.asList(0, 1), Arrays.asList(1, 2),
-                Arrays.asList(1, 3), Arrays.asList(2, 3),
-                Arrays.asList(3, 1)
+        System.out.println(isCyclic(4, asList(
+                Collections.singletonList(1), asList(2, 3),
+                Collections.singletonList(3), Collections.singletonList(1)
         )));
     }
     public static boolean isCyclic(int V, List<List<Integer>> adj) {
         Set<Integer> visited = new HashSet<>();
+        Set<Integer> path = new HashSet<>();
         for(int i=0; i<V; i++) {
-            if(!visited.contains(i))
-                if(checkCycleBFS(adj, i, visited)) return true;
+            if(!visited.contains(i)) {
+                path.clear();
+                if(checkCycleDFS(adj, i, visited, path)) return true;
+            }
+
         }
         return false;
     }
 
-    static boolean checkCycleBFS(List<List<Integer>> adj, int source, Set<Integer> visited) {
-        Queue<Integer> q = new LinkedList<>();
-        q.add(source);
+    static  boolean checkCycleDFS(List<List<Integer>> adj, int source, Set<Integer> visited, Set<Integer> path) {
         visited.add(source);
-        while(!q.isEmpty()) {
-            int el = q.poll();
-            for(int child : adj.get(el)) {
-                if(!visited.contains(child)) {
-                    q.add(child);
-                    visited.add(child);
-                }else return true;
-            }
+        path.add(source);
+        for(int el : adj.get(source)) {
+            if(path.contains(el)) return true;
+
+            if(visited.contains(el)) continue;
+
+            if(checkCycleDFS(adj, el, visited, path)) return true;
+            path.remove(el);
         }
         return false;
     }
