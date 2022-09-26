@@ -1,8 +1,7 @@
 package array;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <h3>Level: Medium </h3>
@@ -11,8 +10,10 @@ import java.util.stream.Collectors;
  * <br/>
  * Approach:
  * <ul>
- *     <li>Maintain sum in a set</li>
- *     <li>Time complexity: O(n^2)</li>
+ *     <li>Use prefix sum concept and whenever prefix sum modulo k is same at two positions, i.e., we have a multiple of k in between</li>
+ *     <li>for the constraint of subarray with at least two elements, check the position of same key - which should be 1 less than current position</li>
+ *     <li>Time complexity: O(n)</li>
+ *     <li>Space complexity: O(n)</li>
  * </ul>
  */
 
@@ -28,23 +29,20 @@ public class ContiguousSumArrayLC {
     }
 
     public static boolean checkSubarraySum(int[] nums, int k) {
-        if (nums.length == 1) return false;
-        if (k == 1) return true;
-        Set<Integer> set = new HashSet<>();
-        int value = nums[0] % k;
-        set.add(value);
-        if (value == 0) set.add(k);
-        for (int i = 1; i < nums.length; i++) {
-            int val = nums[i] % k;
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 0);
+        int sum=0;
 
-            if (set.contains(k - val)) {
-                return true;
+        for(int i=0; i<nums.length; i++) {
+            sum += nums[i];
+
+            if(!map.containsKey(sum%k)) {
+                map.put(sum%k, i+1);
             }
 
-            set = set.stream().map(x -> (x + val) % k).collect(Collectors.toSet());
-            set.add(val);
-            if (val == 0) set.add(k);
-            // System.out.println(set);
+            if(map.get(sum%k) < i)
+                return true;
+
         }
         return false;
     }
