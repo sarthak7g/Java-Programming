@@ -1,5 +1,8 @@
 package array;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <h3>Level: Medium </h3>
  * <body>
@@ -7,8 +10,8 @@ package array;
  * <br/>
  * Approach:
  * <ul>
- *     <li>Use prefix sum concept and whenever prefix sum modulo k is same at two positions, i.e., we have a multiple of k in between</li>
- *     <li>for the constraint of subarray with at least two elements, check the position of same key - which should be 1 less than current position</li>
+ *     <li>Maintain a counter which will increase by 1 for every 1 & will decrease by 1 for every 0.</li>
+ *     <li>Using prefix sum concept, we can say that whenever the value of count is same at different positions, that means we have a subarray of equal 0 and 1.</li>
  *     <li>Time complexity: O(n)</li>
  *     <li>Space complexity: O(n)</li>
  * </ul>
@@ -20,47 +23,29 @@ public class ContiguousSubarrayWithEqual0And1 {
         System.out.println(findMaxLength(new int[] {1,1,1,1}));
         System.out.println(findMaxLength(new int[] {0,0,0,0,0}));
         System.out.println(findMaxLength(new int[] {0,0,1,1,0,0,1,0,1,1,0,1,0}));
+        System.out.println(findMaxLength(new int[] {0,1,0,1,1,1,0,0,1,1,0,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0}));
+        System.out.println(findMaxLength(new int[] {0,1,0,1,1,1,0,0,1,1,0,1,1,1,1,1,1,0,1,1,0,0,0,0}));
+        System.out.println(findMaxLength(new int[] {0,1,0,1,1,1,0,0,1,1,0,1,1,1,1,1,1,0,1,1,0,1,1,0,0,0,1,0,1,0,0,1,0,1,1,1,1,1,1,0,0,0,0,1,0,0,0,1,1,1,0,1,0,0,1,1,1,1,1,0,0,1,1,1,1,0,0,1,0,1,1,0,0,0,0,0,0,1,0,1,0,1,1,0,0,1,1,0,1,1,1,1,0,1,1,0,0,0,1,1}));
     }
 
     public static int findMaxLength(int[] nums) {
-        int zero=0, one=0, length=0, diff, k;
-        int[] zarr = new int[nums.length+1];
-        int[] oarr = new int[nums.length+1];
+        int count = 0, ans=0;
+
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, 0);
 
         for(int i=0; i<nums.length; i++) {
             if(nums[i] == 0) {
-                zero += 1;
-                zarr[zero] = i;
+                count -= 1;
             }else {
-                one += 1;
-                oarr[one] = i;
-            }
-            int minVal = Math.min(zero, one);
-            if(minVal*2 <= length) {
-                continue;
+                count += 1;
             }
 
-            if(zero == one) {
-                length = 2*zero;
-                continue;
-            }
-            else if(zero > one) {
-                diff = zero-one;
-                k = i - zarr[diff];
-            }else {
-                diff = one-zero;
-                k = i - oarr[diff];
-            }
-
-            if(minVal*2 == k) {
-                // System.out.println(zero + " " + one + " " + k);
-                length = k;
-            }
+            if(map.containsKey(count)) {
+                ans = Math.max(ans, i+1 - map.get(count));
+            }else map.put(count, i+1);
         }
 
-        // System.out.println(Arrays.toString(zarr));
-        // System.out.println(Arrays.toString(oarr));
-
-        return length;
+        return ans;
     }
 }
