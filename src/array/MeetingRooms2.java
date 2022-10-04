@@ -22,7 +22,7 @@ import java.util.PriorityQueue;
  *      <li><b>Output:</b> 2</li>
  * </ul>
  *
- * <b>Approach:</b>
+ * <b>Approach 1:</b>
  * <ul>
  *      <li>Tip: Think of the simple way to solve this question.</li>
  *      <li>Sort the array of intervals by startTime.</li>
@@ -31,12 +31,23 @@ import java.util.PriorityQueue;
  *      <li>Space complexity: O(n)</li>
  * </ul>
  *
+ * <b>Approach 2:</b>
+ * <ul>
+ *      <li>Separate startIndex and endIndex into new arrays and sort them.</li>
+ *      <li>Now, apply or run two pointers approach, whenever start[i] >= end[j] i.e., meetings in one of the room has ended, else all the rooms are currently occupied and hence a new room needs to be allocated.</li>
+ *      <li>Time complexity: O(n(log n))</li>
+ *      <li>Space complexity: O(n)</li>
+ * </ul>
+ *
  */
 
-public class MeetingRooms2_PrefixSum {
+public class MeetingRooms2 {
     public static void main(String[] args) {
         System.out.println(minMeetingRooms(new int[][]{{0,30},{15,25},{10,20}}));
         System.out.println(minMeetingRooms(new int[][]{{0,30},{5,10},{15,20},{25,45},{50,65},{35,55},{30,35}}));
+
+        System.out.println(minMeetingRooms2(new int[][]{{0,30},{15,25},{10,20}}));
+        System.out.println(minMeetingRooms2(new int[][]{{0,30},{5,10},{15,20},{25,45},{50,65},{35,55},{30,35}}));
     }
 
     public static int minMeetingRooms(int[][] intervals) {
@@ -56,5 +67,32 @@ public class MeetingRooms2_PrefixSum {
         }
 
         return pq.size();
+    }
+
+    public static int minMeetingRooms2(int[][] arr) {
+        int[] start = new int[arr.length];
+        int[] end = new int[arr.length];
+
+        for(int i=0; i<arr.length; i++) {
+            start[i] = arr[i][0];
+            end[i] = arr[i][1];
+        }
+
+        Arrays.sort(start);
+        Arrays.sort(end);
+
+        int count = 0, i=0, j=0;
+
+        while(i<arr.length && j<arr.length) {
+            if(start[i] >= end[j]) {
+                i++;
+                j++;
+            }else {
+                i++;
+                count++;
+            }
+        }
+
+        return count;
     }
 }
