@@ -1,52 +1,87 @@
 package array;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+
+/**
+ * <h3>Level: Medium </h3>
+ * <body>
+ * refer to: <a href="https://leetcode.com/problems/max-consecutive-ones-iii/">Max Consecutive Ones III</a>
+ * <br/>
+ * <br/>
+ * <b>Approach 1:</b>
+ * <ul>
+ *      <li>Use sliding window with two pointers, left and right. In a window you can have maximum of k zeros according to that we shift left and right.</li>
+ *      <li>Use an array to record index of zeros and everytime window>k, shift left to next index having zero.</li>
+ *      <li>Time complexity: O(n)</li>
+ *      <li>Space complexity: O(k)</li>
+ * </ul>
+ * <b>Approach 2:</b>
+ * <ul>
+ *      <li>Same approach instead of using array we will linearly increment left until next zero is found.</li>
+ *      <li>Time complexity: O(n)</li>
+ *      <li>Space complexity: O(1)</li>
+ * </ul>
+ */
 
 public class MaxConsecutiveOnesIII {
 
     public static void main(String[] args) {
         System.out.println(longestOnes(new int[] {1,1,1,0,0,0,1,1,1,1}, 2));
         System.out.println(longestOnes(new int[] {0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1}, 2));
+        System.out.println(longestOnes(new int[] {0,0,0,1}, 4));
+        System.out.println(longestOnes2(new int[] {1,1,1,0,0,0,1,1,1,1}, 2));
+        System.out.println(longestOnes2(new int[] {0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1}, 2));
+        System.out.println(longestOnes2(new int[] {0,0,0,1}, 4));
     }
     public static int longestOnes(int[] nums, int k) {
 
-        Map<Integer, Integer> map = new LinkedHashMap<>();
-
-        int sum=0, ans=0;
-        for(int  val : nums) {
-            sum += val;
-            if(val == 0)
-                map.put(sum, map.getOrDefault(sum, 0)+1);
-        }
-
-        List<Integer> al = new ArrayList<>(map.keySet());
-        // System.out.println(al);
-
-        int start, zeros, ones=0, j;
-        for(int i=0; i<al.size(); i++) {
-            zeros = k;
-            start = i>0 ? al.get(i-1) : 0;
-            j = i;
-            while(j<al.size() && zeros>=0) {
-                ones = al.get(j) - start;
-                zeros -= map.get(al.get(j));
-                j++;
+        int left=-1, right=0, ans=0, window=0, t=0;
+        List<Integer> al = new ArrayList<>();
+        for(int i=0; i<nums.length; i++) {
+            if(nums[i] == 1) {
+                ans = Math.max(ans, right-left);
+                right += 1;
+                continue;
             }
 
-            if(zeros >= 0) {
-                ones = sum-start+k-zeros;
-            }else ones += k;
-//            System.out.println(ones);
-            ans = Math.max(ans, ones);
+            al.add(i);
+
+            if(window < k) {
+                window += 1;
+            }
+
+            else {
+                left = al.get(t++);
+            }
+
+            ans = Math.max(ans, right-left);
+            right += 1;
+
         }
-        if(al.size() != 0) {
-            start = al.get(al.size()-1);
-            ones = sum-start+k;
-            ans = Math.max(ans, ones);
+
+        return ans;
+    }
+
+    public static int longestOnes2(int[] nums, int k) {
+        int left=-1, right=0, ans=0, window=0;
+
+        for (int num : nums) {
+            if (num == 1) {
+                ans = Math.max(ans, right - left);
+                right += 1;
+                continue;
+            }
+
+            if (window < k) {
+                window += 1;
+            } else while (nums[++left] == 1) ;
+
+            ans = Math.max(ans, right - left);
+            right += 1;
+
         }
+
 
         return ans;
     }
