@@ -11,9 +11,13 @@ import java.util.Map;
  * <br/>
  * <b>Approach:</b>
  * <ul>
- *      <li>Use hashmap to store the prefix sum.</li>
- *      <li>Now, to check the array is overlapping just check the sum-target is greater or equal to the last index of last subarray.</li>
- *      <li>And to always get the best answer, we'll put the rightmost index of any prefix sum in the map.</li>
+ *      <li>Know that (a+b)%p = a%p + b%p.</li>
+ *      <li>Find the target = sum%p. Now, the question will become, find the subarray with sum % p = target. Here's how: <br/>
+ *          (sum[0..n] - sum[i..j]) % p = 0 <br/>
+ *          sum[0..n] % p = sum[i..j] % p <br/>
+ *          target = sum[i..j] % p
+ *      </li>
+ *      <li>In hashmap store the prefix_sum % p at each index. And also check, if (prefix_sum - target) % p exists or not.</li>
  *      <li>Time complexity: O(n)</li>
  *      <li>Space complexity: O(n)</li>
  * </ul>
@@ -27,31 +31,31 @@ public class MakeSumDivisibleByP {
     }
     public static int minSubarray(int[] nums, int p) {
         int ans=nums.length;
-        long sum=0, target;
-        Map<Long, Integer> map = new HashMap<>();
-        map.put(0L, -1);
+        int sum=0, target, temp;
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
 
         for(int el: nums) {
             sum += el;
+            sum %= p;
         }
-//        System.out.println(sum);
-
         target = sum % p;
-//        System.out.println(target);
-
         if(target == 0) return 0;
 
         sum=0;
         for(int i=0; i<nums.length; i++) {
-            sum += nums[i];
-            if(map.containsKey(sum-target)) {
-                ans = Math.min(ans, i-map.get(sum-target));
+            sum = (sum + nums[i])%p;
+            temp = sum-target < 0 ? sum-target+p: sum-target;
+
+            if(map.containsKey(temp)) {
+                ans = Math.min(ans, i-map.get(temp));
             }
+
             map.put(sum, i);
         }
+        // System.out.println(map);
 
         if(ans == nums.length) return -1;
         return ans;
-
     }
 }
