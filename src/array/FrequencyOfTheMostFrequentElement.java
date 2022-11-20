@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * <h3>Level: Medium</h3>
  * <body>
- * refer to: <a href="https://leetcode.com/problems/frequency-of-the-most-frequent-element/"> Frequency of the Most Frequent Element</a>
+ * refer to: <a href="https://leetcode.com/problems/frequency-of-the-most-frequent-element/">Frequency of the Most Frequent Element</a>
  * <br/>
  * <br/>
  * <b>Approach:</b>
