@@ -31,10 +31,10 @@ public class LargestSumOfAverages {
         if(k == n) {
             return sum[n];
         }
-        return find(nums, sum, 0, k, n);
+        return find(sum, 0, k, n);
     }
 
-    static double find(int[] arr, int[] sum, int st, int k, int n) {
+    static double find(int[] sum, int st, int k, int n) {
         if(k <= 0) return 0;
         if(dp[st][k] != 0) return dp[st][k];
 
@@ -44,7 +44,7 @@ public class LargestSumOfAverages {
         }else {
             for(int i=st; i<=n-k; i++) {
                 temp = (double)(sum[i+1]-sum[st])/(i-st+1);
-                temp += find(arr, sum, i+1, k-1, n);
+                temp += find(sum, i+1, k-1, n);
                 ans = Math.max(ans, temp);
             }
         }
