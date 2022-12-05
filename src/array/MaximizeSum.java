@@ -14,7 +14,6 @@ import java.util.Arrays;
  *      <li>Time complexity: O(n * log n)</li>
  *      <li>Space complexity: O(1)</li>
  * </ul>
- *
  */
 
 public class MaximizeSum {
