@@ -59,7 +59,7 @@ public class IntervalsBetweenIdenticalElements {
 
         for(int i=0; i<n; i++) {
             int el = list.get(i);
-            ans[el] = el * (long)(2L *i + 1 - n) - arr[i] + arr[n] - arr[i+1];
+            ans[el] = el * (2L*i + 1 - n) - arr[i] + arr[n] - arr[i+1];
         }
     }
 }

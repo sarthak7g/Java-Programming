@@ -12,7 +12,7 @@ import java.util.Arrays;
  * <ul>
  *      <li>Hint: Try with O(n^2) solution.</li>
  *      <li>Sort the array. Then, find the mathematical formula.</li>
- *      <li>Time complexity: O(n)</li>
+ *      <li>Time complexity: O(n*log(n))</li>
  *      <li>Space complexity: O(n)</li>
  * </ul>
  */
