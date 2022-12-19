@@ -3,7 +3,7 @@ package array;
 /**
  * <h3>Level: Medium </h3>
  * <body>
- * refer to: <a href="Number of Ways to Split Array">Number of Ways to Split Array</a>
+ * refer to: <a href="https://leetcode.com/problems/number-of-ways-to-split-array/">Number of Ways to Split Array</a>
  * <br/>
  * <br/>
  * <b>Approach:</b>
