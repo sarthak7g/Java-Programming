@@ -3,22 +3,22 @@ package array;
 /**
  * <h3>Level: Medium </h3>
  * <body>
- * refer to: <a href="Minimum Amount of Time to Collect Garbage">Minimum Amount of Time to Collect Garbage</a>
+ * refer to: <a href="https://leetcode.com/problems/minimum-amount-of-time-to-collect-garbage/">Minimum Amount of Time to Collect Garbage</a>
  * <br/>
  * <br/>
  * <b>Approach:</b>
  * <ul>
- *      <li>Hint: </li>
+ *      <li>Hint: Calculate the last position of type of garbage separately</li>
  *      <li>Time complexity: O(n)</li>
  *      <li>Space complexity: O(n)</li>
  * </ul>
  * </body>
  */
 
-
 public class MinimumAmountOfTimeToCollectGarbage {
     public static void main(String[] args) {
         System.out.println(garbageCollection(new String[]{"G", "P", "GP", "GG"}, new int[]{2, 4, 3}));
+        System.out.println(garbageCollection(new String[]{"MMM", "PGM", "GP"}, new int[]{3, 10}));
     }
 
     public static int garbageCollection(String[] garbage, int[] travel) {
