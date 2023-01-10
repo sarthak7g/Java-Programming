@@ -8,7 +8,7 @@ package array;
  * <br/>
  * <b>Approach:</b>
  * <ul>
- *      <li>Hint: Range addition approach/li>
+ *      <li>Hint: Range addition approach</li>
  *      <li>Time complexity: O(n)</li>
  *      <li>Space complexity: O(n)</li>
  * </ul>
