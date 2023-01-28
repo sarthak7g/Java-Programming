@@ -9,9 +9,10 @@ import java.util.Comparator;
  * refer to: <a href="https://leetcode.com/problems/car-fleet/description/">Car Fleet</a>
  * <br/>
  * <br/>
- * <b>Approach:</b>
+ * <b>Approach 1:</b>
  * <ul>
  *      <li>Find the time taken to reach target for each car. Sort the array based on position. refer <a href="https://leetcode.com/problems/car-fleet/solutions/139850/c-java-python-straight-forward/">solution 1</a></li>
+ *      <li>Also <a href="https://leetcode.com/problems/car-fleet/solutions/255589/python-code-with-explanations-and-visualization-beats-95/">refer</a> for diagram: </li>
  *      <li>Start from the car at most advanced position, now we will maintain a slowest variable which we will store the min time to reach to the fleet.</li>
  *      <li>A faster car having slower time will catchup with current fleet. But if we have a slowest car, that will be the leading car of new fleet.</li>
  *      <li>Time complexity: O(n(log(n)))</li>
