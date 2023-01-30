@@ -32,22 +32,19 @@ public class MaximumWidthRamp {
             if (nums[i] >= max) {
                 max = nums[i];
                 ans = Math.max(i, ans);
-                // System.out.println(i + "  " + ans);
                 continue;
             }
             curr = l.size() - 1;
             if (nums[i] < nums[l.get(curr)]) {
                 l.add(i);
-                // System.out.println(i + "  " + ans);
                 continue;
             }
-            while (curr > 0 && nums[i] >= nums[l.get(curr)]) {
+            while (curr >= 0 && nums[i] >= nums[l.get(curr)]) {
                 curr--;
             }
-            ans = Math.max(i - l.get(curr) - 1, ans);
-            // System.out.println(i + " " + (i-l.get(curr)-1));
+            curr += 1;
+            ans = Math.max(i - l.get(curr), ans);
         }
-        // System.out.println(l);
 
         return ans;
     }
