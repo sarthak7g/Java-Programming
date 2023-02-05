@@ -21,6 +21,15 @@ import java.util.Map;
  *      <li>Time complexity: O(n)</li>
  *      <li>Space complexity: O(n)</li>
  * </ul>
+ * <b>Approach 2:</b>
+ * <ul>
+ *      <li>Intuition: DP + MonoStack</li>
+ *      <li>We will build upon the solution of previous indexes while traversing from 0 to n.</li>
+ *      <li>dp[i] will denote the answer for all the sub arrays that end at i.</li>
+ *      <li>Use increasing mono stack to put all elements.</li>
+ *      <li>Time complexity: O(n)</li>
+ *      <li>Space complexity: O(n)</li>
+ * </ul>
  * </body>
  */
 
@@ -29,6 +38,10 @@ public class SumOfSubarrayMinimums {
         System.out.println(sumSubarrayMins(new int[]{3, 1, 2, 4}));
         System.out.println(sumSubarrayMins(new int[]{71, 55, 82, 55}));
         System.out.println(sumSubarrayMins(new int[]{11, 81, 94, 43, 3}));
+        System.out.println();
+        System.out.println(sumSubarrayMins2(new int[]{3, 1, 2, 4}));
+        System.out.println(sumSubarrayMins2(new int[]{71, 55, 82, 55}));
+        System.out.println(sumSubarrayMins2(new int[]{11, 81, 94, 43, 3}));
     }
 
     public static int sumSubarrayMins(int[] arr) {
@@ -67,7 +80,6 @@ public class SumOfSubarrayMinimums {
             stack.addLast(i);
         }
 
-        // System.out.println(map);
         // find an element's contribution in the range
         for (Map.Entry<Integer, ArrayList<Integer>> entry : map.entrySet()) {
             key = entry.getKey();
@@ -80,5 +92,27 @@ public class SumOfSubarrayMinimums {
         return (int) ans;
     }
 
+    public static int sumSubarrayMins2(int[] arr) {
+        Deque<Integer> stack = new ArrayDeque<>();
+        int n = arr.length, mod = 1000000007;
+        long ans = 0;
+        long[] dp = new long[n];
+
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && arr[stack.getLast()] > arr[i]) {
+                stack.removeLast();
+            }
+            if (stack.isEmpty()) {
+                dp[i] = ((long) arr[i] * (i + 1)) % mod;
+            } else {
+                dp[i] = (dp[stack.getLast()] + ((long) arr[i] * (i - stack.getLast()))) % mod;
+            }
+            ans += dp[i];
+            ans %= mod;
+            stack.addLast(i);
+        }
+
+        return (int) ans;
+    }
 
 }
