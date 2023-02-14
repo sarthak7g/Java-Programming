@@ -16,6 +16,12 @@ import java.util.Deque;
  *      <li>Time complexity: O(n*log(n))</li>
  *      <li>Space complexity: O(n)</li>
  * </ul>
+ * <b>Approach 2:</b>
+ * <ul>
+ *     <li>Greedy approach. Refer <a href="https://leetcode.com/problems/the-number-of-weak-characters-in-the-game/solutions/2277321/the-number-of-weak-characters-in-the-game/">solution</a></li>
+ *      <li>Time complexity: O(n)</li>
+ *      <li>Space complexity: O(n)</li>
+ * </ul>
  * </body>
  */
 
@@ -25,6 +31,11 @@ public class TheNumberOfWeakCharactersInTheGame {
         System.out.println(numberOfWeakCharacters(new int[][]{{2, 2}, {3, 3}}));
         System.out.println(numberOfWeakCharacters(new int[][]{{1, 5}, {10, 4}, {4, 3}}));
         System.out.println(numberOfWeakCharacters(new int[][]{{1, 1}, {2, 1}, {2, 2}, {1, 2}}));
+        System.out.println();
+        System.out.println(numberOfWeakCharacters2(new int[][]{{5, 5}, {6, 3}, {3, 6}}));
+        System.out.println(numberOfWeakCharacters2(new int[][]{{2, 2}, {3, 3}}));
+        System.out.println(numberOfWeakCharacters2(new int[][]{{1, 5}, {10, 4}, {4, 3}}));
+        System.out.println(numberOfWeakCharacters2(new int[][]{{1, 1}, {2, 1}, {2, 2}, {1, 2}}));
     }
 
     public static int numberOfWeakCharacters(int[][] arr) {
@@ -37,6 +48,28 @@ public class TheNumberOfWeakCharactersInTheGame {
             }
             if (!stack.isEmpty()) count++;
             stack.addFirst(arr[i][1]);
+        }
+        return count;
+    }
+
+    public static int numberOfWeakCharacters2(int[][] arr) {
+        int count = 0, maxAttack = 0;
+        for (int[] ints : arr) {
+            maxAttack = Math.max(maxAttack, ints[0]);
+        }
+
+        int[] val = new int[maxAttack + 2];
+        for (int[] temp : arr) {
+            val[temp[0]] = Math.max(val[temp[0]], temp[1]);
+        }
+
+        for (int i = maxAttack; i >= 0; i--) {
+            val[i] = Math.max(val[i], val[i + 1]);
+        }
+
+        // System.out.println(Arrays.toString(val));
+        for (int[] temp : arr) {
+            if (temp[1] < val[temp[0] + 1]) count++;
         }
         return count;
     }
