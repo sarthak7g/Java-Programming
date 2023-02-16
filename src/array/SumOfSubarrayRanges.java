@@ -4,9 +4,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * refer to: <a href="https://leetcode.com/problems/sum-of-subarray-ranges/description/">Sum of Subarray Ranges</a>
  * <h3>Level: Medium</h3>
  * <body>
+ * refer to: <a href="https://leetcode.com/problems/sum-of-subarray-ranges/description/">Sum of Subarray Ranges</a>
  * <br/>
  * <br/>
  * <b>Approach 1:</b>
