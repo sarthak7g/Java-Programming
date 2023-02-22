@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * <h3>Level: Easy </h3>
+ * <h3>Level: Medium </h3>
  * <body>
  * refer to: <a href="https://leetcode.com/problems/steps-to-make-array-non-decreasing/description/">Steps to Make Array Non-decreasing</a>
  * <br/>
