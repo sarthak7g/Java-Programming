@@ -1,6 +1,8 @@
 package array;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 /**
  * <h3>Level: Medium </h3>
@@ -18,6 +20,12 @@ import java.util.Arrays;
  * <ul>
  *      <li>Hint: Recursively build tree using upper-lower limits and without using inorder traversal.</li>
  *      <li>At start, we will set lower and upper limit to negative infinity and positive infinity respectively, to see if an element can be placed there or not. Recursively we will do the same while changing the limits.</li>
+ *      <li>Time complexity: O(n)</li>
+ *      <li>Space complexity: O(n)</li>
+ * </ul>
+ * <b>Approach 3:</b>
+ * <ul>
+ *      <li>Iterative stack approach, converted from approach 2. Refer <a href="https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/editorial/">solution</a> </li>
  *      <li>Time complexity: O(n)</li>
  *      <li>Space complexity: O(n)</li>
  * </ul>
@@ -55,6 +63,9 @@ public class ConstructBSTFromPreorderTraversal {
         System.out.println();
         System.out.println(bstFromPreorder2(new int[]{8, 5, 1, 7, 10, 12}));
         System.out.println(bstFromPreorder2(new int[]{1, 3}));
+        System.out.println();
+        System.out.println(bstFromPreorder3(new int[]{8, 5, 1, 7, 10, 12}));
+        System.out.println(bstFromPreorder3(new int[]{1, 3}));
     }
 
     public static TreeNode bstFromPreorder(int[] pre) {
@@ -94,6 +105,24 @@ public class ConstructBSTFromPreorderTraversal {
         idx2 += 1;
         root.left = solve2(pre, low, val);
         root.right = solve2(pre, val, high);
+        return root;
+    }
+
+    public static TreeNode bstFromPreorder3(int[] arr) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode last, curr, root = new TreeNode(0);
+        for (int val : arr) {
+            last = null;
+            curr = new TreeNode(val);
+            while (!stack.isEmpty() && val > stack.getFirst().data) {
+                last = stack.remove();
+            }
+            if (last != null) last.right = curr;
+            else if (!stack.isEmpty()) {
+                stack.getFirst().left = curr;
+            } else root = curr;
+            stack.addFirst(curr);
+        }
         return root;
     }
 }
